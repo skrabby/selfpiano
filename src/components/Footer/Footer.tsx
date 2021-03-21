@@ -1,6 +1,6 @@
 import React from "react";
 
-class Header extends React.Component {
+class Footer extends React.Component {
 	constructor(props: any) {
 		super(props);
 	}
@@ -8,10 +8,10 @@ class Header extends React.Component {
 	render() {
 		return(
 			<div>
-			<p>header</p>
+			<p>footer</p>
 			</div>
 		)
 	} 
 }
 
-export default Header;
+export default Footer;
