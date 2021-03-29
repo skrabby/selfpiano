@@ -1,15 +1,15 @@
 import React from 'react';
-import Footer from './components/Footer';
-import Header from './components/Header';
+import * as Components from './components';
 
 class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Header/>
-        <Footer/>
-      </div>
+      <React.Fragment>
+        <Components.Header/>
+        <Components.Router/>
+        <Components.Footer/>
+      </React.Fragment>
     );
   }
 }
