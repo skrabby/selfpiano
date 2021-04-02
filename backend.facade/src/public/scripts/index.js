@@ -6,7 +6,7 @@ displayUsers();
 
 
 function displayUsers() {
-    httpGet('/api/users/all')
+    httpGet('/api/v1/users/all')
         .then(response => response.json())
         .then((response) => {
             var allUsers = response.users;
@@ -83,7 +83,7 @@ function addUser() {
             email: emailInput.value
         },
     };
-    httpPost('/api/users/add', data)
+    httpPost('/api/v1/users/add', data)
         .then(() => {
             displayUsers();
         })
@@ -118,7 +118,7 @@ function submitEdit(ele) {
             id: id
         }
     };
-	httpPut('/api/users/update', data)
+	httpPut('/api/v1/users/update', data)
         .then(() => {
             displayUsers();
         })
@@ -127,7 +127,7 @@ function submitEdit(ele) {
 
 function deleteUser(ele) {
     var id = ele.getAttribute('data-user-id');
-	httpDelete('/api/users/delete/' + id)
+	httpDelete('/api/v1/users/delete/' + id)
         .then(() => {
             displayUsers();
         })

@@ -25,4 +25,6 @@ yarn-error.log*
 
 # backend
 /backend.facade/node_modules
+/backend.facade/dist
+/backend.facade/jet-logger.log
 /frontend/node_modules

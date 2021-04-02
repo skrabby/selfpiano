@@ -1,0 +1,32 @@
+version: '3'
+services:
+#  db:
+#    image: postgres:11.4-alpine
+#    container_name: postgres
+#    ports:
+#      - 5432:5432
+#    volumes:
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#      POSTGRES_DATABASE: postgres
+#    restart: always
+#    build:
+#    context: ./postgres/
+#    dockerfile: Dockerfile
+  backend.express.facade:
+    image: backend.facade.express
+    container_name: backend.facade.express
+    ports:
+      - 3000:3000
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
+#      SPRING_DATASOURCE_USERNAME: postgres
+#      SPRING_DATASOURCE_PASSWORD: postgres
+    restart: always
+    build:
+      context: ./backend.facade/
+      dockerfile: Dockerfile
+#    depends_on:
+##      - db
