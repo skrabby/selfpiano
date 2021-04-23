@@ -1,0 +1,45 @@
+.input {
+  position: relative;
+
+  & input {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    display: block;
+    height: 40px;
+    padding: 4px 10px;
+    border-radius: 10px;
+    border: none;
+    margin: 18px 0;
+  }
+
+  &.login {
+    margin: 18px auto;
+  }
+
+  &.md {
+    max-width: 300px;
+  }
+}
+
+.icon {
+  position: absolute;
+  height: 20px;
+  top: 50%;
+  right: 10px;
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+
+  &.email {
+    content: url(../../assets/img/icons/email.svg);
+    height: 24px;
+    -ms-transform: translate(0, -36%);
+    transform: translate(0, -36%);
+  }
+
+  &.eye-open {
+    right: 13px;
+    content: url(../../assets/img/icons/eye_open.svg);
+  }
+}

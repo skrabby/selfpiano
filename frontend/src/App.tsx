@@ -6,9 +6,7 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Components.Header/>
         <Components.Router/>
-        <Components.Footer/>
       </React.Fragment>
     );
   }
