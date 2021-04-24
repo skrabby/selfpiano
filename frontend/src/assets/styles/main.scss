@@ -15,3 +15,13 @@ input:focus {
 input::placeholder {
   color: $placeholder-color;
 }
+
+button {
+  transition-duration: 0.4s;
+  border: none;
+}
+
+button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}

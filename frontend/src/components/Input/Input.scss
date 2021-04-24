@@ -1,3 +1,5 @@
+@import '../../assets/styles/vars.scss';
+
 .input {
   position: relative;
 
@@ -8,10 +10,11 @@
     width: 100%;
     display: block;
     height: 40px;
-    padding: 4px 10px;
+    font-size: 12px;
+    padding: 10px 45px 10px 15px;
     border-radius: 10px;
     border: none;
-    margin: 18px 0;
+    margin-top: 18px;
   }
 
   &.login {
@@ -23,10 +26,10 @@
   }
 }
 
-.icon {
+.input-icon {
   position: absolute;
   height: 20px;
-  top: 50%;
+  top: 20px;
   right: 10px;
   -ms-transform: translate(0, -50%);
   transform: translate(0, -50%);
@@ -41,5 +44,23 @@
   &.eye-open {
     right: 13px;
     content: url(../../assets/img/icons/eye_open.svg);
+  }
+}
+
+.input-msg {
+  margin-top: 5px;
+  margin-left: 5px;
+  font-size: 12px;
+
+  &.info-msg {
+    color: $info-msg-color;
+  }
+
+  &.error-msg {
+    color: $error-msg-color;
+  }
+
+  &.success-msg {
+    color: $success-msg-color;
   }
 }
