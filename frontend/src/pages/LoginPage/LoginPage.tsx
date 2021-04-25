@@ -95,7 +95,7 @@ class LoginPage extends React.Component<LoginPageState> {
     render() {
 
         return (
-            <div className='wrapper'>
+            <div className='wrapper-pic'>
                 <div className='card abs-center login'>
                     <div className='logo img'></div>
                     <div className='logo title'>Selfpiano</div>

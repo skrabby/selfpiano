@@ -1,11 +1,12 @@
 @import './src/assets/styles/styles.scss';
 
-body {
+.wrapper-pic {
   background: url(../../assets/img/login_page_bg2.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  min-height: 100vh;
 }
 
 .card {
