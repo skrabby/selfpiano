@@ -47,9 +47,13 @@
   }
 }
 
+.msg-block {
+  margin-top: 8px;
+}
+
 .input-msg {
   margin-top: 5px;
-  margin-left: 5px;
+  margin-left: 15px;
   font-size: 12px;
 
   &.info-msg {

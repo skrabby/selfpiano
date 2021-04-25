@@ -1,6 +1,8 @@
 import React from 'react';
 import * as Components from '../../components';
 import { Message } from '../../utils/enums';
+import * as Rules from '../../utils/rules';
+import * as Interfaces from '../../utils/interfaces';
 
 import './LoginPage.scss';
 
@@ -51,20 +53,20 @@ class LoginPage extends React.Component<LoginPageState> {
         switch (this.state.card) {
             case Card.REGISTER:
                 return  <div>
-                            <Components.Input className={'input md login'} placeholder={'Email*'} icon={'email'}/>
-                            <Components.Input className={'input md login'} placeholder={'First name'} />
-                            <Components.Input className={'input md login'} placeholder={'Last name'} />
-                            <Components.Input className={'input md login'} placeholder={'Password*'} icon={'eye-open'} type={'password'}/>
-                            <Components.Input className={'input md login'} placeholder={'Repeat password*'} icon={'eye-open'} type={'password'}/>
+                            <Components.Input {...fields.login} />
+                            <Components.Input {...fields.firstName } />
+                            <Components.Input {...fields.lastName } />
+                            <Components.Input {...fields.password} />
+                            <Components.Input {...fields.rptPassword} />
                         </div>
             case Card.LOGIN:
                 return  <div>
-                            <Components.Input className={'input md login'} placeholder={'Email*'} icon={'email'} />
-                            <Components.Input className={'input md login'} placeholder={'Password*'} icon={'eye-open'} type={'password'} />
+                            <Components.Input {...fields.login} />
+                            <Components.Input {...fields.password} />
                         </div>
             case Card.FORGOT_PASSWORD:
                 return  <div>
-                            <Components.Input className={'input md login'} placeholder={'Email*'} icon={'email'}/>
+                            <Components.Input {...fields.login} />
                         </div>
         }
     }
@@ -128,3 +130,34 @@ class LoginPage extends React.Component<LoginPageState> {
 }
 
 export default LoginPage;
+
+const fields = {
+    login: {
+        className: 'input md login',
+        placeholder: 'Email*',
+        icon: 'email',
+        rules: [{ rule: Rules.isRequired, args: { value: '' } },
+                { rule: Rules.minLength, args: { value: '', minLength: 4 } }
+            ]
+    },
+    password: {
+        className: 'input md login',
+        placeholder: 'Password*',
+        icon: 'eye-open',
+        type: 'password',
+    },
+    rptPassword: {
+        className: 'input md login',
+        placeholder: 'Password*',
+        icon: 'eye-open',
+        type: 'password',
+    },
+    firstName: {
+        className: 'input md login',
+        placeholder: 'First name',
+    },
+    lastName: {
+        className: 'input md login',
+        placeholder: 'First name',
+    }
+}

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './Input.scss';
 import { Message } from '../../utils/enums';
+import * as Interfaces from '../../utils/interfaces';
 
 type Exclude = 'onChange' | 'value';
 
@@ -14,21 +15,25 @@ interface IInputProps extends Omit<React.ButtonHTMLAttributes<HTMLInputElement>,
     icon?: string;
     msgtype?: Message,
     msg?: string;
-    rules?: any[];
+    rules?: Interfaces.Rule[];
     onChange?(e: EventTarget & HTMLInputElement): void;
 }
 
 interface IInputState {
     value: any;
+    rules: Interfaces.Rule[];
     msgtype: Message;
     msg: string;
+    isChanged: boolean;
 }
 
 export default class Input extends React.Component<IInputProps, IInputState> {
     state = {
         value: this.props.value || '',
+        rules: this.props.rules || [], 
         msgtype: this.props.msgtype || Message.NONE,
-        msg: this.props.msg || ''
+        msg: this.props.msg || '',
+        isChanged: false
     };
 
     render() {
@@ -40,28 +45,16 @@ export default class Input extends React.Component<IInputProps, IInputState> {
             type,
             isDisabled,
             icon,
-           // rules,
             ...props
         } = this.props;
 
-        const { value } = this.state;
+        const { value, rules } = this.state;
 
         let errorsToRender: JSX.Element[] = [];
 
-        let rules: { (val: string, args?: {}): any }[] = [];
-        rules.push((v) => v);
-        rules.push((v, args) => v);
-        rules.push(() => 'Error Message One');
-        rules.push(() => 'Error Message One');
-
-        // let rules = {
-        //     isRequired: { val: value, args: {} },
-        //     maxLength: { val: value, args: {} }       
-        // }
-        
-        rules && rules.forEach((rule, idx) => {
-
-            const errorMsg = rule(value);
+        rules && rules.forEach((rule: Interfaces.Rule, idx: number) => {
+            rule.args.value = value;
+            const errorMsg = rule.rule(rule.args);
             errorsToRender.push(<div key={ idx } className='input-msg error-msg'>{ errorMsg }</div>);
         });
 
@@ -75,10 +68,12 @@ export default class Input extends React.Component<IInputProps, IInputState> {
                     placeholder={placeholder}
                     {...props}
                 />
-                { this.state.msgtype === Message.INFO ? <div className='input-msg info-msg'>{this.state.msg}</div> : '' }
-                { this.state.msgtype === Message.ERROR ? <div className='input-msg error-msg'>{this.state.msg}</div> : '' }
-                { this.state.msgtype === Message.SUCCESS ? <div className='input-msg success-msg'>{this.state.msg}</div> : '' }
-                { errorsToRender }
+                <div className='msg-block'>
+                    { this.state.msgtype === Message.INFO ? <div className='input-msg info-msg'>{this.state.msg}</div> : '' }
+                    { this.state.msgtype === Message.ERROR ? <div className='input-msg error-msg'>{this.state.msg}</div> : '' }
+                    { this.state.msgtype === Message.SUCCESS ? <div className='input-msg success-msg'>{this.state.msg}</div> : '' }
+                    { this.state.isChanged ? errorsToRender : '' }
+                </div>
             </div>
         );
     }
@@ -86,8 +81,10 @@ export default class Input extends React.Component<IInputProps, IInputState> {
     onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const target = e.target;
         
-
-        this.setState({value: target.value} );
+        this.setState({
+            value: target.value,
+            isChanged: true
+        });
 
         this.props.onChange && this.props.onChange(target);
     };
