@@ -95,24 +95,6 @@
   margin-top: 15px;
 }
 
-.btn {
-  display: block;
-  height: 40px;
-  min-width: 200px;
-  background: $primary-color;
-  color: white;
-  font-weight: 500;
-  border-radius: 10px;
-
-  & .btn-primary {
-    background: $primary-color;
-  }
-
-  &.center {
-    margin: 0 auto;
-  }
-}
-
 .link-text {
   color: $link-color;
   font-size: 12px;

@@ -48,12 +48,35 @@
 }
 
 .msg-block {
-  margin-top: 8px;
+  margin-top: 5px;
+}
+
+.input-msg-container {
+  display: flex;
+}
+
+.input-msg-icon {
+  margin-left: 6px;
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+
+  &.info-msg {
+    content: url(../../assets/img/icons/info-msg-icon.svg);
+  }
+
+  &.error-msg {
+    content: url(../../assets/img/icons/error-msg-icon.svg);
+  }
+
+  &.success-msg {
+    content: url(../../assets/img/icons/success-msg-icon.svg);
+  }
 }
 
 .input-msg {
   margin-top: 5px;
-  margin-left: 15px;
+  margin-left: 10px;
   font-size: 12px;
 
   &.info-msg {

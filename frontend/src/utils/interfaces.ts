@@ -1,10 +1,10 @@
-export interface Rule {
-	rule: (args: RuleArgs) => any;
-	args: RuleArgs;
+export interface IRule {
+	rule: (args: IRuleArgs) => any;
+	args?: IRuleArgs;
 }
 
-export interface RuleArgs {
-	value: string;
+export interface IRuleArgs {
+	value?: string;
 	maxLength?: number;
 	minLength?: number;
 }

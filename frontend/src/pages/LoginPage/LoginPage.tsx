@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {BaseSyntheticEvent, SyntheticEvent} from 'react';
 import * as Components from '../../components';
+import * as Actions from './actions';
 import { Message } from '../../utils/enums';
 import * as Rules from '../../utils/rules';
-import * as Interfaces from '../../utils/interfaces';
+
 
 import './LoginPage.scss';
 
@@ -37,6 +38,21 @@ class LoginPage extends React.Component<LoginPageState> {
     onForgotPasswordClick = () => {
         this.setState( { card: Card.FORGOT_PASSWORD } );
     }
+
+    onFormSubmit = (e: BaseSyntheticEvent) => {
+        e.preventDefault();
+        if (!Rules.validInputCheck(e, fields)) {
+            return ;
+        }
+
+        const data: Actions.Interfaces.ILoginSubmitAction = {
+            login: e.target.login.value,
+            password: e.target.password.value
+        }
+
+        Actions.SubmitActions.submitLogin(data)
+    }
+
 
     getMsgColor = () => {
         const { statusMsgType } = this.state;
@@ -84,11 +100,11 @@ class LoginPage extends React.Component<LoginPageState> {
     renderButton() {
         switch (this.state.card) {
             case Card.LOGIN:
-                return <button type="submit" className='btn btn-primary center'>Login</button>
+                return <Components.Button type="submit" className='btn btn-primary center'>Login</Components.Button>
             case Card.REGISTER:
-                return <button type="submit" className='btn btn-primary center'>Register</button> 
+                return <Components.Button type="submit" className='btn btn-primary center'>Register</Components.Button>
             case Card.FORGOT_PASSWORD:
-                return <button type="submit" className='btn btn-primary center'>Submit</button> 
+                return <Components.Button type="submit" className='btn btn-primary center'>Submit</Components.Button>
         }
     }
 
@@ -99,26 +115,30 @@ class LoginPage extends React.Component<LoginPageState> {
                 <div className='card abs-center login'>
                     <div className='logo img'></div>
                     <div className='logo title'>Selfpiano</div>
-                    <div className='input-block'>
-                    <div className={'status-msg ' + this.getMsgColor()}>
-                        { this.state.statusMsgType !== Message.NONE && this.state.statusMsg }
-                    </div>
-                    { this.renderInputs() }
-                    </div>
-                    {(this.state.card === Card.LOGIN || this.state.card === Card.REGISTER) ?
-                        <div className='social-auth-block'>
-                            <div className='social-icon facebook'></div>
-                            <div className='social-icon google'></div>
-                            <div className='social-icon twitter'></div>
+                    <form onSubmit={this.onFormSubmit}>
+                        <div className='input-block'>
+                        <div className={'status-msg ' + this.getMsgColor()}>
+                            { this.state.statusMsgType !== Message.NONE && this.state.statusMsg }
                         </div>
-                        :
-                        ''
-                    }
-                    <div className='btn-submit-block'>
-                    { this.renderButton() }
-                    </div>
+                        { this.renderInputs() }
+                        </div>
+                        {(this.state.card === Card.LOGIN || this.state.card === Card.REGISTER) ?
+                            <div className='social-auth-block'>
+                                <div className='social-icon facebook'></div>
+                                <div className='social-icon google'></div>
+                                <div className='social-icon twitter'></div>
+                            </div>
+                            :
+                            ''
+                        }
+                        <div className='btn-submit-block'>
+                        { this.renderButton() }
+                        </div>
+                    </form>
                     {this.state.card === Card.LOGIN ?
-                        <div className='password-reminder link-text' onClick={() => this.onForgotPasswordClick()}>Forgot your password?</div>
+                        <div className='password-reminder'>
+                            <span className="link-text" onClick={() => this.onForgotPasswordClick()}>Forgot your password?</span>
+                        </div>
                         :
                         ''
                     }
@@ -131,33 +151,36 @@ class LoginPage extends React.Component<LoginPageState> {
 
 export default LoginPage;
 
-const fields = {
+const fields: any = {
     login: {
+        name: 'login',
         className: 'input md login',
         placeholder: 'Email*',
         icon: 'email',
-        rules: [{ rule: Rules.isRequired, args: { value: '' } },
-                { rule: Rules.minLength, args: { value: '', minLength: 4 } }
-            ]
+        rules: [{ rule: Rules.isRequired }]
     },
     password: {
+        name: 'password',
         className: 'input md login',
         placeholder: 'Password*',
         icon: 'eye-open',
-        type: 'password',
+        type: 'password'
     },
     rptPassword: {
+        name: 'rptPassword',
         className: 'input md login',
-        placeholder: 'Password*',
+        placeholder: 'Repeat password*',
         icon: 'eye-open',
-        type: 'password',
+        type: 'password'
     },
     firstName: {
+        name: 'firstName',
         className: 'input md login',
         placeholder: 'First name',
     },
     lastName: {
+        name: 'lastName',
         className: 'input md login',
-        placeholder: 'First name',
+        placeholder: 'Last name'
     }
 }
