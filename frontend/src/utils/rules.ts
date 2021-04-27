@@ -28,9 +28,17 @@ export const isRequired = (args: Interfaces.IRuleArgs): string => {
 }
 
 export const maxLength = (args: Interfaces.IRuleArgs): string => {
-	return (args.value!.length > args.maxLength! ? `Length cannot exceed ${args.maxLength}` : '');
+	return (args.value!.length > args.maxLength! ? `Length cannot exceed ${args.maxLength} letters` : '');
 }
 
 export const minLength = (args: Interfaces.IRuleArgs): string => {
-	return (args.value!.length <= args.minLength! ? `Length should exceed ${args.minLength}` : '');
+	return (args.value!.length <= args.minLength! ? `Length should exceed ${args.minLength} letters` : '');
+}
+
+export const hasCapLetter = (args: Interfaces.IRuleArgs): string => {
+	return (/[A-Z]/.test(args.value!) ? '' : 'Field should contain 1 capital letter')
+}
+
+export const hasDigit = (args: Interfaces.IRuleArgs): string => {
+	return (/\d/.test(args.value!) ? '' : 'Field should contain 1 digit')
 }

@@ -24,7 +24,8 @@ class LoginPage extends React.Component<LoginPageState> {
     state = {
         card: Card.LOGIN,
         statusMsgType: Message.NONE,
-        statusMsg: ''
+        statusMsg: '',
+        fields: fields
     }
 
     onRegisterClick = () => {
@@ -72,8 +73,8 @@ class LoginPage extends React.Component<LoginPageState> {
                             <Components.Input {...fields.login} />
                             <Components.Input {...fields.firstName } />
                             <Components.Input {...fields.lastName } />
-                            <Components.Input {...fields.password} />
-                            <Components.Input {...fields.rptPassword} />
+                            <Components.Input {...fields.regPassword} />
+                            <Components.Input {...fields.regRptPassword} />
                         </div>
             case Card.LOGIN:
                 return  <div>
@@ -164,14 +165,24 @@ const fields: any = {
         className: 'input md login',
         placeholder: 'Password*',
         icon: 'eye-open',
-        type: 'password'
+        type: 'password',
+        rules: [{ rule: Rules.isRequired }]
     },
-    rptPassword: {
-        name: 'rptPassword',
+    regPassword: {
+        name: 'regPassword',
+        className: 'input md login',
+        placeholder: 'Password*',
+        icon: 'eye-open',
+        type: 'password',
+        rules: [{ rule: Rules.hasCapLetter }, { rule: Rules.hasDigit }, { rule: Rules.minLength, args: { minLength: 6 } }]
+    },
+    regRptPassword: {
+        name: 'regRptPassword',
         className: 'input md login',
         placeholder: 'Repeat password*',
         icon: 'eye-open',
-        type: 'password'
+        type: 'password',
+        rules: [{ rule: Rules.hasCapLetter }, { rule: Rules.hasDigit }, { rule: Rules.minLength, args: { minLength: 6 } }]
     },
     firstName: {
         name: 'firstName',
