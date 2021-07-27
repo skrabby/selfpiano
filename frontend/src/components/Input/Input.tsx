@@ -2,6 +2,7 @@ import * as React from 'react';
 import './Input.scss';
 import { Message } from '../../utils/enums';
 import * as Interfaces from '../../utils/interfaces';
+import {connect} from "react-redux";
 
 type Exclude = 'onChange' | 'value';
 
@@ -16,6 +17,8 @@ interface IInputProps extends Omit<React.ButtonHTMLAttributes<HTMLInputElement>,
     msgtype?: Message,
     msg?: string;
     rules?: Interfaces.IRule[];
+    isChanged?: boolean;
+
     onChange?(e: EventTarget & HTMLInputElement): void;
 }
 
@@ -25,7 +28,6 @@ interface IInputState {
     msgtype: Message;
     msg: string;
     isChanged: boolean;
-    isError: boolean;
     errorsToRender: JSX.Element[]
 }
 
@@ -35,22 +37,37 @@ export default class Input extends React.Component<IInputProps, IInputState> {
         rules: this.props.rules || [], 
         msgtype: this.props.msgtype || Message.NONE,
         msg: this.props.msg || '',
-        isChanged: false,
-        isError: true,
+        isChanged: this.props.isChanged || false,
         errorsToRender: []
     };
+
+    componentDidMount() {
+        const { isChanged, value } = this.props;
+
+        isChanged && this.setErrorsToRender(value || '');
+    }
+
+    componentDidUpdate(prevProps: Readonly<IInputProps>, prevState: Readonly<IInputState>, snapshot?: any) {
+        const { isChanged } = this.props;
+        const { value } = this.state;
+
+        if (isChanged !== prevProps.isChanged && isChanged) {
+            this.setErrorsToRender(value);
+        }
+    }
 
     render() {
         const {
             placeholder,
             className,
-            error,
-            onChange,
             type,
-            isDisabled,
             icon,
-            ...props
         } = this.props;
+
+        const {
+            isChanged,
+            errorsToRender
+        } = this.state;
 
         return (
             <div className={`input ${className}`}>
@@ -60,13 +77,12 @@ export default class Input extends React.Component<IInputProps, IInputState> {
                     value={this.state.value}
                     onChange={this.onChange}
                     placeholder={placeholder}
-                    {...props}
                 />
                 <div className='msg-block'>
                     { this.state.msgtype === Message.INFO ? <div className='input-msg info-msg'>{this.state.msg}</div> : '' }
                     { this.state.msgtype === Message.ERROR ? <div className='input-msg error-msg'>{this.state.msg}</div> : '' }
                     { this.state.msgtype === Message.SUCCESS ? <div className='input-msg success-msg'>{this.state.msg}</div> : '' }
-                    { this.state.isChanged ? this.state.errorsToRender : '' }
+                    { isChanged && errorsToRender }
                 </div>
             </div>
         );
@@ -74,14 +90,7 @@ export default class Input extends React.Component<IInputProps, IInputState> {
 
     onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const target = e.target;
-        const errorsToRender = this.getErrorsToRender(target.value)
-
-        this.setState({
-            value: target.value,
-            isChanged: true,
-            errorsToRender: errorsToRender,
-            isError: errorsToRender.length > 0
-        });
+        this.setErrorsToRender(target.value);
 
         this.props.onChange && this.props.onChange(target);
     };
@@ -104,5 +113,15 @@ export default class Input extends React.Component<IInputProps, IInputState> {
         });
 
         return errorsToRender;
+    }
+
+    setErrorsToRender(value: string) {
+        const errorsToRender = this.getErrorsToRender(value)
+
+        this.setState({
+            value: value,
+            isChanged: true,
+            errorsToRender: errorsToRender
+        });
     }
 }

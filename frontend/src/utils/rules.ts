@@ -1,22 +1,17 @@
 import * as Interfaces from './interfaces';
 import {BaseSyntheticEvent} from "react";
 
-export const validInputCheck = (e: BaseSyntheticEvent, fields: any): boolean => {
-	const formInputs = [ ...e.target.elements].filter((el: any) => el.tagName === 'INPUT');
-
-	for (let formInput of formInputs) {
-
-		if (fields[formInput.name] && fields[formInput.name].rules) {
-			// Looping over input rules
-			for (let rule of fields[formInput.name].rules) {
-
-				const args = rule.args ? rule.args : {};
-
-				args.value = formInput.value
-
-				if (rule.rule(args).length > 0) {
-					return false;
-				}
+export const validInputCheck = (fields: any): boolean => {
+	for (let key of Object.keys(fields)) {
+		for (let rule of fields[key].rules) {
+			// invoking rule checker, if length > 0 there is error message
+			if (!rule.args) {
+				rule.args = { value: fields[key].value || '' }
+			} else {
+				rule.args.value = fields[key].value || '';
+			}
+			if (rule.rule(rule.args).length > 0) {
+				return false;
 			}
 		}
 	}

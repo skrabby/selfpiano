@@ -3,6 +3,7 @@ import Footer from './Footer';
 import Input from './Input';
 import { Button } from './Button';
 import { Router, RouteConstants } from './Router';
+import Form from './Form';
 
 export {
     Header,
@@ -10,5 +11,6 @@ export {
     Router,
     RouteConstants,
     Input,
-    Button
+    Button,
+    Form
 }
