@@ -2,7 +2,6 @@ import * as React from 'react';
 import './Input.scss';
 import { Message } from '../../utils/enums';
 import * as Interfaces from '../../utils/interfaces';
-import {connect} from "react-redux";
 
 type Exclude = 'onChange' | 'value';
 
@@ -20,6 +19,7 @@ interface IInputProps extends Omit<React.ButtonHTMLAttributes<HTMLInputElement>,
     isChanged?: boolean;
 
     onChange?(e: EventTarget & HTMLInputElement): void;
+    onFieldChange?(e: EventTarget & HTMLInputElement): void;
 }
 
 interface IInputState {
@@ -93,6 +93,7 @@ export default class Input extends React.Component<IInputProps, IInputState> {
         this.setErrorsToRender(target.value);
 
         this.props.onChange && this.props.onChange(target);
+        this.props.onFieldChange && this.props.onFieldChange(target);
     };
 
     getErrorsToRender(value: string) {

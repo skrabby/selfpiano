@@ -3,7 +3,7 @@ import {BaseSyntheticEvent} from "react";
 
 export const validInputCheck = (fields: any): boolean => {
 	for (let key of Object.keys(fields)) {
-		for (let rule of fields[key].rules) {
+		for (let rule of fields[key].rules || []) {
 			// invoking rule checker, if length > 0 there is error message
 			if (!rule.args) {
 				rule.args = { value: fields[key].value || '' }

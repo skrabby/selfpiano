@@ -23,8 +23,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# backend
+# backend.facade
 /backend.facade/node_modules
 /backend.facade/dist
 /backend.facade/jet-logger.log
+# backend.auth
+/backend.authorization/node_modules
+/backend.authorization/dist
+/backend.authorization/jet-logger.log
+
 /frontend/node_modules

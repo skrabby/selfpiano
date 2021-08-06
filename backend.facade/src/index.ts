@@ -1,10 +1,12 @@
-import './pre-start'; // Must be the first import
-import app from '@server';
-import logger from './utils/Logger';
+import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
 
+const port = process.env.SERVER_PORT;
+const app = express();
 
-// Start the server
-const port = Number(process.env.PORT || 3000);
-app.listen(port, () => {
-    logger.info('Express server started on port: ' + port);
-});
+// start the Express server
+app.listen( port, () => {
+    // tslint:disable-next-line:no-console
+    console.log( `Server started at http://localhost:${ port }` );
+} );
