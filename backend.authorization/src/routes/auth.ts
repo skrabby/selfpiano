@@ -12,18 +12,19 @@ router.post('/login', (req, res, next) => {
             return next(err);
         }
         if (!user) {
-            return res.redirect('/login');
+            return res.status(401).json({message: 'Authorization failed, user not found'})
         }
 
         req.logIn(user, { session: false }, (error) => {
             if (error) { return next(error); }
-            const token = jwt.sign(user, process.env.JWT_SECRET_KEY);
+            delete user.password;
+            const token: any = jwt.sign(user, process.env.JWT_SECRET_KEY, { algorithm: "RS256" });
             return res.json({token});
         });
     })(req, res, next);
 });
 
-router.get('/verify',(req, res, next) => {
+router.post('/verify',(req, res, next) => {
     passport.authenticate('jwt', { session: false }, (err, user) => {
         if (err) {
             return res.status(400).json({error: err})
@@ -31,6 +32,7 @@ router.get('/verify',(req, res, next) => {
         if (!user) {
             return res.status(401).json({errorMessage: 'Invalid token received'})
         }
+        user.iat = new Date(user.iat * 1000);
         return res.json(user);
     })(req, res, next);
 });
