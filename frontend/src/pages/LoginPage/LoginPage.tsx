@@ -1,6 +1,6 @@
 import React, {BaseSyntheticEvent } from 'react';
 import * as Components from '../../components';
-import * as Actions from './actions';
+import * as Actions from '../../store/actions';
 import { Message } from '../../utils/enums';
 import * as Rules from '../../utils/rules';
 
@@ -39,16 +39,17 @@ class LoginPage extends React.Component<LoginPageState> {
     }
 
     onLoginSubmit = (e: BaseSyntheticEvent) => {
-        const data: Actions.Interfaces.ILoginSubmitData = {
+        const data: Actions.Interfaces.ILoginSubmit = {
             login: fields.login.value,
             password: fields.password.value
         }
 
-        Actions.SubmitActions.submitLogin(data)
+        const response = Actions.SubmitActions.submitLogin(data);
+        console.log(response);
     }
 
     onForgotPasswordSubmit = (e: BaseSyntheticEvent) => {
-        const data: Actions.Interfaces.IForgotPasswordSubmitData = {
+        const data: Actions.Interfaces.IForgotPasswordSubmit = {
             login: fields.login.value,
         }
 
@@ -56,7 +57,7 @@ class LoginPage extends React.Component<LoginPageState> {
     }
 
     onRegisterSubmit = (e: BaseSyntheticEvent) => {
-        const data: Actions.Interfaces.IRegisterSubmitData = {
+        const data: Actions.Interfaces.IRegisterSubmit = {
             login: fields.login.value,
             password: fields.password.value
         }

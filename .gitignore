@@ -33,3 +33,5 @@ yarn-error.log*
 /backend.authorization/jet-logger.log
 
 /frontend/node_modules
+/frontend/dist
+/frontend/build

@@ -1,11 +1,10 @@
 import { Dispatch } from "redux";
 import * as FetchActions from "./fetchActions";
-import { fetchActionCreators as ActionCreators}  from "./actionCreators";
+import * as SubmitActions from "./submitActions";
+import * as Interfaces from "./interfaces";
 
-// Logging errors
-const wrapLogger = (f: any) => (...args: any[]) => f(...args).catch(console.log); 
-
-export const fetchAndSetProducts = () => wrapLogger(async (dispatch: Dispatch) => {
-	const products: any = await FetchActions.fetchProducts();
-	dispatch(ActionCreators.setProducts(products));
-});
+export {
+	FetchActions,
+	SubmitActions,
+	Interfaces
+}
