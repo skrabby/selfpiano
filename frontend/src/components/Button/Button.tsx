@@ -12,8 +12,8 @@ export class Button extends React.Component<IButtonProps> {
 
         return (
             <button
-                className={`btn ${className}`}
                 {...this.props}
+                className={`btn ${className}`}
             />
         )
     }
