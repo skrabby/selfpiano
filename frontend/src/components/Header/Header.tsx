@@ -12,7 +12,7 @@ class Header extends React.Component {
 		return(
 			<header>
 				<div className='header__msg'>
-					The website is working in trial mode. Every single piece is absolutely FREE. Take your chance!
+					This website is working in trial mode
 				</div>
 				<nav className='header__nav'>
 					<div className='header__container'>

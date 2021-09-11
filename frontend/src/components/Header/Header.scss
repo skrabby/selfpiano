@@ -12,11 +12,14 @@
     }
 
     & div:nth-child(1) {
-      width: 300px;
+      flex: 1 1 0;
+
+      @media screen and (max-width: 640px) {
+        flex: 0 0 20px;
+      }
     }
 
     & div:nth-child(2) {
-      flex-basis: 100%;
       text-align: center;
       text-transform: uppercase;
       font-family: 'Red Hat Text', sans-serif;
@@ -27,7 +30,7 @@
     }
 
     & div:nth-child(3) {
-      width: 300px;
+      flex: 1 1 0;
       ul {
         height: 60px;
         padding: 0;

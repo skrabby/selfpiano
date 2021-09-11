@@ -45,6 +45,8 @@ footer {
     position: absolute;
     left: 50%;
     top: 30px;
+    width: calc(100% - 60px);
+    text-align: center;
     transform: translate(-50%, 50%);
     text-transform: uppercase;
     font-family: "Red Hat Text", sans-serif;
@@ -58,6 +60,8 @@ footer {
     position: absolute;
     left: 50%;
     top: 90px;
+    width: 100%;
+    text-align: center;
     transform: translate(-50%, 50%);
     text-transform: uppercase;
     font-family: "Red Hat Text", sans-serif;
@@ -66,6 +70,10 @@ footer {
     font-weight: 400;
     transition: 0.4s ease-out transform;
     z-index: 1;
+
+    @media screen and (max-width: 480px) {
+      display: none;
+    }
   }
 
   img {
